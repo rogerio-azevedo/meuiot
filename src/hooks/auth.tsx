@@ -50,8 +50,6 @@ const AuthProvider: React.FC = ({ children }) => {
   }, [])
 
   const signIn = useCallback(async ({ email, password }) => {
-    console.log('teste')
-
     const response = await api.post('sessions', {
       email,
       password,

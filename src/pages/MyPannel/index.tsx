@@ -1,12 +1,15 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Button } from 'react-native'
+
+import { useAuth } from '../../hooks/auth'
 
 import { Container } from './styles'
 
 const MyPannel: React.FC = () => {
+  const { signOut } = useAuth()
   return (
     <Container>
-      <Text>My Pannel</Text>
+      <Button title="Sair" onPress={signOut} />
     </Container>
   )
 }

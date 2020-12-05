@@ -12,7 +12,7 @@ const Routes: React.FC = () => {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color="#999" />
+        <ActivityIndicator size="large" color="#fff" />
       </View>
     )
   }
@@ -21,18 +21,3 @@ const Routes: React.FC = () => {
 }
 
 export default Routes
-// <Auth.Navigator
-//   screenOptions={{
-//     headerShown: false,
-//     headerTintColor: '#fff',
-//     headerStyle: {
-//       backgroundColor: '#155799',
-//     },
-//     cardStyle: {
-//       backgroundColor: '#155799',
-//     },
-//   }}
-// >
-//   <Auth.Screen name="SignIn" component={SignIn} />
-//   <Auth.Screen name="SignUp" component={SignUp} />
-// </Auth.Navigator>

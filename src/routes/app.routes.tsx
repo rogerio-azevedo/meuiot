@@ -8,7 +8,7 @@ const App = createStackNavigator()
 const AppRoutes: React.FC = () => (
   <App.Navigator
     screenOptions={{
-      headerShown: false,
+      headerShown: true,
       headerTintColor: '#fff',
       headerStyle: {
         backgroundColor: '#155799',
