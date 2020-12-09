@@ -33,37 +33,37 @@ const SignIn: React.FC = () => {
 
   const handleSignIn = useCallback(
     async (data: SignInFormData) => {
-      // try {
-      //   formRef.current?.setErrors({})
+      try {
+        formRef.current?.setErrors({})
 
-      //   const schema = Yup.object().shape({
-      //     email: Yup.string()
-      //       .required('Email obrigatório')
-      //       .email('Digite um e-mail válido'),
-      //     password: Yup.string().required('Senha obrigatória'),
-      //   })
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .required('Email obrigatório')
+            .email('Digite um e-mail válido'),
+          password: Yup.string().required('Senha obrigatória'),
+        })
 
-      //   await schema.validate(data, {
-      //     abortEarly: false,
-      //   })
-      //   console.log('teste click')
-      await signIn({
-        email: data.email,
-        password: data.password,
-      })
-      // } catch (err) {
-      //   if (err instanceof Yup.ValidationError) {
-      //     const errors = getValidationErrors(err)
-      //     formRef.current?.setErrors(errors)
+        await schema.validate(data, {
+          abortEarly: false,
+        })
 
-      //     return
-      //   }
+        await signIn({
+          email: data.email,
+          password: data.password,
+        })
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err)
+          formRef.current?.setErrors(errors)
 
-      //   RN.Alert.alert(
-      //     'Erro na autenticação',
-      //     'Não foi possivel fazer o login, Verifique seu email/senha',
-      //   )
-      // }
+          return
+        }
+
+        RN.Alert.alert(
+          'Erro na autenticação',
+          'Não foi possivel fazer o login, Verifique seu email/senha',
+        )
+      }
     },
     [signIn],
   )
