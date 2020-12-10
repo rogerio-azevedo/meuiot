@@ -10,8 +10,9 @@ import api from '../../services/api'
 
 import Background from '../../components/Background'
 import * as Styles from './styles'
+import { useAuth } from '../../hooks/auth'
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+const { width: screenWidth } = Dimensions.get('window')
 
 type ItemCamera = { url: string }
 
@@ -27,9 +28,7 @@ type ColorType = {
 }
 
 type DeviceType = {
-  customer_id?: number
   id: number
-  model?: string
   name: string
   state: boolean
   type: string
@@ -37,6 +36,7 @@ type DeviceType = {
 
 const MyPannel: React.FC = () => {
   const navigation = useNavigation()
+  const { user } = useAuth()
 
   const [entries, setEntries] = useState<ItemCamera[]>([])
   const [activeSlide, setActiveSlide] = useState<number>(0)
@@ -162,7 +162,7 @@ const MyPannel: React.FC = () => {
           </Styles.AvatarContainer>
         </Styles.HeaderContainer>
 
-        <Styles.WelcomeText>Olá, Rogério Azevedo</Styles.WelcomeText>
+        <Styles.WelcomeText>{`Olá, ${user.name}`}</Styles.WelcomeText>
         <Styles.TermometerText>{`Em ${city}: ${temperature}°C - ${weather}`}</Styles.TermometerText>
 
         <Carousel
@@ -180,7 +180,7 @@ const MyPannel: React.FC = () => {
           dotsLength={entries.length}
           activeDotIndex={activeSlide}
           containerStyle={{
-            // backgroundColor: 'rgba(255, 255, 255, 0.3)',
+            // backgroundColor: 'rgba(255, 255, 255, 0.2)',
             paddingVertical: 10,
             width: screenWidth,
           }}
