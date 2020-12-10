@@ -5,7 +5,6 @@ import axios from 'axios'
 import { Dimensions } from 'react-native'
 
 import Carousel, { Pagination } from 'react-native-snap-carousel'
-import Icon from 'react-native-vector-icons/Feather'
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
 import api from '../../services/api'
 
@@ -17,15 +16,23 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 type ItemCamera = { url: string }
 
 type SwitchState = {
-  cliente: number
   type: string
   device: number
   state: boolean
 }
 
-type ColorProps = {
+type ColorType = {
   id: number
   color: string
+}
+
+type DeviceType = {
+  customer_id?: number
+  id: number
+  model?: string
+  name: string
+  state: boolean
+  type: string
 }
 
 const MyPannel: React.FC = () => {
@@ -37,9 +44,9 @@ const MyPannel: React.FC = () => {
   const [weather, setWeather] = useState<string>('')
   const [city, setCity] = useState<string>('')
 
-  const [devices, setDevices] = useState([])
+  const [devices, setDevices] = useState<DeviceType[]>([])
   const [swhState, setSwtState] = useState<SwitchState>({} as SwitchState)
-  const [bcolor, setBcolor] = useState<ColorProps>({ id: 0, color: '#aaa' })
+  const [bcolor, setBcolor] = useState<ColorType>({ id: 0, color: '#aaa' })
 
   useEffect(() => {
     const itens = [
@@ -85,7 +92,7 @@ const MyPannel: React.FC = () => {
       })
   }, [swhState])
 
-  const renderItem = ({ item, index }: any): any => {
+  const renderItem = ({ item }: any): any => {
     return (
       <Styles.CameraContainer>
         <Styles.PlayerContainer
@@ -114,7 +121,7 @@ const MyPannel: React.FC = () => {
     )
   }
 
-  const handleSwitch = clicked => {
+  const handleSwitch = (clicked: DeviceType): void => {
     if (clicked.type === 'mom' && !clicked.state === true) {
       setBcolor({ id: clicked.id, color: '#159957' })
       setTimeout(() => {
@@ -131,17 +138,7 @@ const MyPannel: React.FC = () => {
     setSwtState(swtc)
   }
 
-  const resolveColor = (item): any => {
-    if (item.type === 'mom' && item.id === bcolor.id) {
-      return bcolor.color
-    }
-    if (item.type === 'ret' && item.state) {
-      return '#34ac0d'
-    }
-    return '#aaa'
-  }
-
-  const resolveIcon = (item): any => {
+  const resolveColor = (item: DeviceType): string => {
     if (item.type === 'mom' && item.id === bcolor.id) {
       return bcolor.color
     }
@@ -217,8 +214,10 @@ const MyPannel: React.FC = () => {
                 />
               </Styles.StatusContainer>
               <IconMaterial
-                name={item.type === 'mom' ? 'car-key' : 'bulbs-outline'}
-                size={40}
+                name={
+                  item.type === 'mom' ? 'car-key' : 'lightbulb-multiple-outline'
+                }
+                size={55}
                 color="#155799"
                 style={{ marginTop: 15 }}
               />
