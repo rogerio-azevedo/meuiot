@@ -68,7 +68,7 @@ const MyPannel: React.FC = () => {
 
     axios
       .get(
-        'http://api.openweathermap.org/data/2.5/weather?q=Cuiaba&units=metric&lang=pt_br&appid=71d4c83f961e0eb2906183eea1ee6a04',
+        'http://api.openweathermap.org/data/2.5/weather?q=Cuiaba&units=metric&lang=pt_br&appid=',
       )
       .then(response => {
         setTemperature(response.data?.main?.temp)
